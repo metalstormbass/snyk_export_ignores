@@ -30,15 +30,15 @@ def build_snyk_file(response_body):
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
 version: v1.14.0
 language-settings:
-ignore:"""
+ignore:\n"""
 
     for vuln_id, info in snyk_info.items():
 
         normalized_vuln = (
-            f"  '{vuln_id}':\n    - '*:'\n      reason: {info['reason']}\n"
+            f"  '{vuln_id}':\n    - '*':\n        reason: {info['reason']}\n"
         )
         if "expires" in info:
-            normalized_vuln += f"      expires: {info['expires']}\n"
+            normalized_vuln += f"        expires: {info['expires']}\n"
 
         snyk_file += normalized_vuln
     print(snyk_file)
